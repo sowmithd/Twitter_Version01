@@ -1,0 +1,97 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+-->
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:a="http://xmlns.jcp.org/jsf/passthrough"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets">
+    <h:head>
+            <f:facet name="first">
+            <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+            <meta content="text/html; charset=UTF-8" http-equiv="Content-Type" />
+            <meta name="viewport" content="width=device-width, initial-scale=1" />		
+
+            <title>Forgot Password</title>
+        </f:facet>
+        <f:facet name="middle">
+            <h:outputStylesheet name="bootstrap/css/bootstrap.css" />
+            <h:outputStylesheet name="css/stylesheet.css" />
+            <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js" />
+            <h:outputScript name="bootstrap/js/bootstrap.js" />
+        </f:facet>
+    </h:head>
+    <h:body>
+         <ui:component>
+                <ui:include src="login.xhtml"/>
+       #{registration.clearfields()}
+             <div class="container">
+    <div class="row">
+    <div class="col-xs-12 col-sm-8 col-md-6 col-sm-offset-2 col-md-offset-3">
+        <h:form  id="forgotform" class="form-group form-group-lg form-control-static panel-body" style="padding-top: 5%; padding-bottom: 10%">
+			<h2>Forgot Password</h2>
+                        <hr class="colorgraph"></hr>
+                        
+
+			<div class="form-group">
+			
+                            <h:inputText id="fname" value="#{registration.email_id}" a:placeholder="Email ID" class="form-control input-lg" tabindex="3" required="true" requiredMessage="EmailID cannot be empty" >
+                                <f:ajax event="valueChange" render="founddisplay quedisplay "/>
+                            </h:inputText>
+                            <h:outputText id="founddisplay" value="#{registration.searchuser()}"  class=" input-lg"></h:outputText>
+                            
+			</div>
+                        <div class="form-group" >
+                            <div class="panel panel-default">
+                                <h:panelGroup id="quedisplay" class="panel panel-default"  >
+                                    <!--<div style="display: none"></div> -->
+                                    <div class="row">
+                                        <div class="form-group">
+                                    <h:outputText id="que" value="#{registration.fsecque}" rendered="#{registration.emailvalid}" class="input-lg"/>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+				    <div class="col-xs-6 col-sm-6 col-md-6">
+					<div class="form-group">
+                                        <h:inputText id="lname" value="#{registration.fans1}" rendered="#{registration.emailvalid}"  a:placeholder="Answer" class="form-control input-lg" tabindex="4" required="true" requiredMessage="Ans cannot be empty"  >
+                                            <f:ajax render="newpass secansvalid" />
+                                        </h:inputText>
+                                        <h:outputText  id = "secansvalid" value ="#{registration.forgotPassword()}" rendered="#{registration.emailvalid}" class="input-lg"/>
+                                    </div>
+                                    </div>
+                                    </div>
+                                    </h:panelGroup>
+                                    <h:panelGroup id="newpass"  class="panel panel-default">
+                                    
+                                   <div class="row">
+				    <div class="col-xs-6 col-sm-6 col-md-6">
+					<div class="form-group">
+                                            <h:inputSecret id="newpassword" value="#{registration.password}" rendered="#{registration.secansvalid}"  a:placeholder="New Password" class="form-control input-lg panel-body" tabindex="6" required="true" requiredMessage="New Password cannot be empty" ></h:inputSecret>
+                                            
+					</div>
+				    </div>
+			            </div>
+                                   <div class="row">
+			             <div class="col-xs-6 col-md-6">
+                                         <h:commandButton id="Submit" value="Update Password"  action="statusforgotpassword" rendered="#{registration.secansvalid}"  class="btn btn-primary btn-block btn-group-lg panel-body " style="font-weight: bold" tabindex="11" >
+                                            
+                                         </h:commandButton>
+                                    </div>
+			            </div>
+                                        </h:panelGroup>
+                                
+                                
+                                
+                            </div>
+			</div>
+        </h:form>
+    </div>
+    </div>
+             </div>
+                 </ui:component>
+  </h:body>
+</html>

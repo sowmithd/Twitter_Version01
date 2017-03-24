@@ -1,0 +1,152 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:p="http://primefaces.org/ui">
+
+    <h:head>
+        <f:facet name="first">
+            <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+            <meta content="text/html; charset=UTF-8" http-equiv="Content-Type" />
+            <meta name="viewport" content="width=device-width, initial-scale=1" />		
+
+            <title>New Page</title>
+        </f:facet>
+
+        <f:facet name="middle">
+            <h:outputStylesheet name="bootstrap/css/bootstrap.css" />
+            <h:outputStylesheet name="css/stylesheet.css" />
+            <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js" />
+            <h:outputScript name="bootstrap/js/bootstrap.js" />
+        </f:facet>
+
+    </h:head>
+    <h:body >
+        
+<nav class="navbar navbar-inverse navbar-fixed-top bg-primary" role="navigation" style="background-color:#337ab7;" >
+  <div class="container-fluid">
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#myNavbar">
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+        
+      <a class="navbar-brand" style="background-color:#337ab7;" rel="home" href="#" title="Twitter">
+        <img style="max-width:100px; margin-top: -40px;" src="resources/images/logo1.png" alt=""/>
+      </a>
+    </div>
+    <div class="collapse navbar-collapse" id="myNavbar">
+      <ul class="nav navbar-nav">
+        <li><a href="#" style="color: white">Home</a></li>
+        <li><a href="#" style="color: white">Messages</a></li>
+      </ul>
+      <form class="navbar-form navbar-right" role="search">
+        <div class="form-group input-group">
+          <input type="text" class="form-control" placeholder="Search.."/>
+          <span class="input-group-btn">
+            <button class="btn btn-default" type="button">
+              <span class="glyphicon glyphicon-search"></span>
+            </button>
+          </span>
+        </div>
+      </form>
+      <ul class="nav navbar-nav navbar-right ">
+          <li><a href="#" style="color: white">Hi! #{registration.uinfo.fname}</a></li>
+          <li><a href="index.xhtml" style="color: white"><span class="glyphicon glyphicon-log-out " style="color: white"></span> Logout</a></li>
+      </ul>
+        
+        
+    </div>
+  </div>
+</nav>
+        <h:form>
+<div class="container text-center">
+  <div class="row">
+    <div class="col-sm-3 well">
+      <div class="well">
+        <p><a href="#">My Profile</a></p>
+        <label style="display: none">#{sidebars.displaypic(registration.sb.loginid)}</label>
+        <p:graphicImage value="#{sidebars.displaypic(registration.sb.loginid)}" rendered="#{sidebars.imgpresent}" class="img-circle" height="65" width="65" alt="Avatar" />
+        <h:graphicImage url="resources/images/defaultmen.png" rendered="#{!sidebars.imgpresent}" class="img-circle" height="65" width="65" alt="Avatar"/>
+      <!-- <img src="resources/images/defaultmen.png" class="img-circle" height="65" width="65" alt="Avatar" /> -->
+      <div><a href="#">#{registration.uinfo.fname} #{registration.uinfo.lname}</a> </div>
+      </div>
+      <div class="well">
+          <p> <strong>Trends!</strong></p>
+          <p> <a href="#">#News</a></p>
+          <p> <a href="#">#ThanksGiving</a> </p>
+          <p>  <a href="#">#DonaldTrump</a></p>
+          <p> <a href="#">#brazilianFootballTeam</a></p>
+          <p> <a href="#">#NAMO</a> </p>
+          
+        
+      </div>
+    </div>
+    <div class="col-sm-7">
+    
+      <div class="row">
+        <div class="col-sm-12">
+          <div class="panel panel-default text-left">
+              <div class="panel-body" >
+                  <div>
+                      <h:inputTextarea rows="4" class="col-lg-12" style="box-shadow: 0 0 2px #3399ff ;" value="#{tweeting.tweet}" validatorMessage="Cant be emplty" >
+                      </h:inputTextarea>
+                 </div>
+                  <div style="float: right; padding-top: 5px">
+                      <h:commandButton id ="tweetbutton" value="Tweet" action="#{tweeting.tweetsave(registration.uinfo.fname)}" class="btn btn-primary btn-sm " style="font-size: large; "   >
+                      </h:commandButton>
+                      
+                  </div>
+            </div>
+          </div>
+        </div>
+      </div>
+        <div class="well">
+            <h:dataTable id="tweets" value="#{tweeting.showtweets(registration.uinfo.fname)}" var="tweets" rowClasses="row"  >
+
+                <h:column>
+                    <p><h:link>#{tweets.fname} #{tweets.lname}</h:link> <span> @#{tweets.fname} </span></p>
+                </h:column>
+              <h:column class="text-center">
+                  
+                  <p>#{tweets.tweet}</p>
+              </h:column>
+ 
+        </h:dataTable>
+        
+        </div>
+        
+    </div>
+    <div class="col-sm-2 well">
+      <div class="thumbnail">
+        <p>Suggestion</p>
+        <label style="display: none">#{sidebars.showsuggestions(registration.sb.loginid)}</label>
+        <p:graphicImage value="#{sidebars.suggpic1}" class="img-circle" height="65" width="65" alt="Avatar" />
+        <p><strong>#{sidebars.suggname1}</strong></p>
+     
+        <button class="btn btn-primary">Following</button>
+      </div>
+      <div class="well">
+        <p>Suggestion</p>
+        
+        <p:graphicImage value="#{sidebars.suggpic2}" class="img-circle" height="65" width="65" alt="Avatar" />
+        <p><strong>#{sidebars.suggname2}</strong></p>
+       
+        <button class="btn btn-primary">Follow</button>
+      </div>
+      </div>
+
+    </div>
+  </div>
+        </h:form>
+
+<footer class="container-fluid text-center">
+    <p>&copy; Sowmith Daram, Surabhi and Urchita</p>
+</footer>
+    </h:body>
+</html>
+
